@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang=""en">
+<head>
+    <meta charset=""UTF-8">
+    <meta name="viewport" content="=width=device-width", initial-scale-1.0">
+
+    <title>CineVerse | Your Movie Universe</title>
+
+    <!--CSS File-->
+    <link rel="stylesheet" href="style.css"
+</head>
+
+<body>
+    <!--Sidebar Navigation-->
+    <aside class="--sidebar"
+    <h1 class="logo">Cine<span>Verse</span></h1>
+
+    <nav class="Navigation--"
+       <button class="nav-btn active" data-page="dashboard">
+         Dashboard
+       </button>
+
+       <button class="nav-btn" data-page="my-list">
+        My-list
+       </button>
+
+       <button class="nav-btn" data-page="favorite">
+         Favorites
+       </button>
+
+       <button class="nav-btn" data-page="explore">
+         Explore
+       </button>
+
+       <button class="nav-btn" data-page="about">
+         About
+       </button>
+
+       <button class="nav-btn" data-page="settings">
+         Settings
+       </button>
+    </nav>
+
+    <!--Statistics-->
+    <main class="main-content">
+
+        <!--Header-->
+        <header class="topbar">
+            <input
+            type="search"
+            id="searcgInput"
+            placeholder="Search movies..."
+            aria-label="Search movies"
+            >
+
+            <button id="themeToggle" type="button">
+                Change Theme
+            </button>
+        </header>
+
+        <!--Dashboard Page-->
+         <section id="dashboard" class="page active">
+            <h2>Welcome to CineVerse</h2> 
+            <p>Discover, track and enjoy your favorite movies.<p>
+
+                <!--Featured Movie-->
+                <div class="featured-movie">
+                    <h3> Featured Movie</h3>
+                    <h2 id="featuredTittle"> Your Movie Universe</h2>
+                    <p id="featuredDescription">
+                        Explore amazing movies and create your own collection.
+                    </p>
+
+                    <button id="featuredDetails" type="button">
+                        View Details
+                    </button>
+                </div>
+
+                <h2>In My List</h2>
+                <div id="trendingMovies" class="Movie-grid"></div>
+
+                <h2>Trending this Week</h2>
+                <div id="trendingMovies" class="mvie-grid"></div>
+         </section>
+
+         <!-- My List Page -->
+          <section id="my-list" class="page" hidden>
+            <h2>My Movie List</h2>
+
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">
+                    All
+                </button>
+
+
+                <button class="filter-btn" data-filter="to-watch">
+                    To Watch 
+                </button>
+
+                <button class="filter-btn" data-filter="Watched">
+                    Watched
+                </button>
+
+                <button class="filter-btn" data-filter="Favorites">
+                    Favorites
+                </button>
+            </div>
+
+            <label for="sortMovies">Sort Movies</label>
+            <select id="sortMovies">
+                <option value="newest">Newest First</option>
+                <option value="rating">highest rating</option>
+                <option value="tittle">Tittle A-Z</option>
+            </select>
+
+            <div id="movielist" class="moviegrid"></div>
+          </section>
+
+          <!--Favorite Page-->
+          <section id="favorites" class="page" hidden>
+            <h2>My favorite Movies</h2>
+            <div id="FavoriteList" class="movie-grid"></div>
+          </section>
+
+          <!--Explore Pages-->
+          <section id="explore" class="page" hidden>
+            <h2>Explore Movies</h2>
+            <p> add a movie to your personal collection.</p>
+
+            <form id="addMovieform">
+                <label for="movieTittle">Movie Tittle</label>
+                <input
+                type="text"
+                id="movieTittle"
+                required
+                >
+
+                <label for="movieYear">release Year</label>
+                <input
+                type="number"
+                id="movieyear"
+                min="1888"
+                max="2100"
+                required
+                >
+
+                <label for="moviesGenre">genre</label>
+                <select id="movieGenre" required>
+                    <option value="">select Genre</option>
+                    <option value="Action">Action</option>
+                    <option value="Comedy">comedy</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Sci-Fi">Si-Fi</option>
+                    <option value="Animation">Animation</option>
+                </select>
+
+                <label for="movieRating">Rating (1-10)</label>
+                <input
+                    type="number"
+                    id="movieRating"
+                    min="1"
+                    max="10"
+                    step="0.1"
+                    required
+            >
+
+            <label for="movieplot">Movie Description</label>
+            <textarea id="movieplot" rows="4"></textarea>
+
+            <label for="movieposter">Poster Image</label>
+            <input
+            type="file"
+            id="movieposter"
+            accept="image/*"
+            >
+
+            <button type="submit">Add Movie</button>
+            <p id="formMessage" role="status"></p>
+            </form>
+
+            <h2>Discover Movies Online</h2>
+            <div id="Explorereults" class="movie-grid"></div>
+          </section>
+
+          <!--About Page-->
+          <section id="about" class="page" hidden>
+            <h2>About CineVerse</h2>
+            <p>
+                CineVerse is a personal movie diary where you can discover movies, track what you watch, write reviews, and save your favorites.
+            </p>
+          </section>
+          <!--Setting Page-->
+          <section id="settings" class="page" hidden>
+            <h2>Settings</h2>
+
+            <label for="apikey">TMDB API key</label>
+            <input 
+                type="password"
+                id="apikey"
+                placeholder="Enter Your TMDB API key"
+                autocomplete="off"
+                >
+
+                <button id="saveapikey" type="button">
+                    save settings
+                </button>
+                <p id="settingsmessage" role="status"></p>
+          </section>
+    </main>
+
+    <!--Movie Details popup-->
+    <dialog id="moviedialog">
+        <button id="closedialog" type="button"
+        aria-label="close Details">X</button>
+
+        <h2 id="detailTitle"></h2>
+        <p id="detailplot"></p>
+
+        <label for="reviewText">Your Review</label>
+        <textarea id="reviewText" rows="4"></textarea>
+
+        <label for="detailRating">Your Rating</label>
+        <input 
+             type="number"
+             id="detailRating"
+             min="1"
+             max="10"
+             step="0.1"
+
+             >
+
+             <div class="dialog-actions">
+                <button id="saveReviews" type="button">
+                    Save Review
+                </button>
+
+                <button id="toggleWatched" type="button">
+                    Mark as Watched
+                </button>
+
+                <button id="toggleFavorite" type="button">
+                    Add to Favorites
+                </button>
+
+                <buttton id="removeMovie" type="button">
+                    remove Movie
+                </buttton>
+             </div>
+    </dialog>
+
+    <!--JavaScript file-->
+    <script src="script.js"></script>
+
+</body>
+</html>
